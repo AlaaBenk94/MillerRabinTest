@@ -1,6 +1,8 @@
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import static MillerRabin.NATURE.INCONNU;
+
 public class MillerRabin {
 
     /**
@@ -17,8 +19,8 @@ public class MillerRabin {
         System.out.println("Num 2 : " + bint2);
         System.out.println("Num 3 : " + bint3);
 
-        System.out.println("ExpMod Num2^Num3 : " + expMod(bint1, bint2, bint3));
-        System.out.println("ExpMod Num2^Num3 : " + bint2.modPow(bint3, bint1));
+        System.out.println("ExpMod Num2^Num3 : " + expMod(bint1, bint2, bint3).toString(16));
+        System.out.println("ExpMod Num2^Num3 : " + bint2.modPow(bint3, bint1).toString(16));
 
 
         for(int i=0;i<10;i++) {
@@ -31,6 +33,21 @@ public class MillerRabin {
         }
 
 
+    }
+
+    /**
+     * Test de Miller Rabin, prend en parametre un nombre n et un compteur cpt et renvoie :
+     * PREMIER si le nombre est premier, COMPLEXE si le nombre est complexe et INCONNU si on peut rien dire
+     * sur la nature du nombre.
+     * @param n grand nombre entier
+     * @param cpt compteur
+     * @return la nature de nombre
+     */
+    public static NATURE MillerRabin(BigInteger n, int cpt) {
+
+
+
+        return INCONNU;
     }
 
 
@@ -76,5 +93,16 @@ public class MillerRabin {
         return tab;
     }
 
+    /**
+     * Cette enumeration represente les trois etats que le test de MILLER RABIN Peut retourner
+     * PREMIER = le nombre est premier
+     * COMPLEXE = le nombre est complexe
+     * INCONNU = on ne peut rien dire sur la nature du nombre
+     */
+    public static enum NATURE {
+        PREMIER,
+        COMPLEXE,
+        INCONNU
+    }
 
 }
