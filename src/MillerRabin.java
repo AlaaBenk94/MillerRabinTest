@@ -3,6 +3,10 @@ import java.security.SecureRandom;
 
 public class MillerRabin {
 
+    /**
+     * le Programme principale.
+     * @param args
+     */
     public static void main(String[] args) {
 
         BigInteger bint1 = new BigInteger(20, new SecureRandom());
@@ -19,14 +23,10 @@ public class MillerRabin {
 
         for(int i=0;i<10;i++) {
             BigInteger n = BigInteger.probablePrime(20, new SecureRandom());
-            // BigInteger n = new BigInteger("101");
-            //int n = (int) (Math.random() * 1000 + 1);
-            System.out.println(n);
             BigInteger[] tab = decomp(n);
 
+            System.out.println(n);
             System.out.println(" s = " + tab[0] + " et d =  " + tab[1]);
-
-
 
         }
 
@@ -37,8 +37,8 @@ public class MillerRabin {
     /**
      * Methode de calcule d'exponentiation modulaire sur les grand nombres entiers.
      * Elle prend n, a et t et retourne (a^t mod n).
-     * @param n base de modulo.
-     * @param a nombre entier.
+     * @param n modulo.
+     * @param a base.
      * @param t exposant.
      * @return
      */
