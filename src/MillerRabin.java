@@ -1,8 +1,6 @@
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-import static MillerRabin.NATURE.INCONNU;
-
 public class MillerRabin {
 
     /**
@@ -11,26 +9,31 @@ public class MillerRabin {
      */
     public static void main(String[] args) {
 
-        BigInteger bint1 = new BigInteger(20, new SecureRandom());
-        BigInteger bint2 = new BigInteger(20, new SecureRandom());
-        BigInteger bint3 = new BigInteger(20, new SecureRandom());
+//        BigInteger bint1 = new BigInteger(20, new SecureRandom());
+//        BigInteger bint2 = new BigInteger(20, new SecureRandom());
+//        BigInteger bint3 = new BigInteger(20, new SecureRandom());
+//
+//        System.out.println("Num 1 : " + bint1);
+//        System.out.println("Num 2 : " + bint2);
+//        System.out.println("Num 3 : " + bint3);
+//
+//        System.out.println("ExpMod Num2^Num3 : " + expMod(bint1, bint2, bint3).toString(16));
+//        System.out.println("ExpMod Num2^Num3 : " + bint2.modPow(bint3, bint1).toString(16));
+//
+//
+//        for(int i=0;i<10;i++) {
+//            BigInteger n = BigInteger.probablePrime(20, new SecureRandom());
+//            BigInteger[] tab = decomp(n);
+//
+//            System.out.println(n);
+//            System.out.println(" s = " + tab[0] + " et d =  " + tab[1]);
+//
+//        }
 
-        System.out.println("Num 1 : " + bint1);
-        System.out.println("Num 2 : " + bint2);
-        System.out.println("Num 3 : " + bint3);
 
-        System.out.println("ExpMod Num2^Num3 : " + expMod(bint1, bint2, bint3).toString(16));
-        System.out.println("ExpMod Num2^Num3 : " + bint2.modPow(bint3, bint1).toString(16));
+        BigInteger n1 = new BigInteger("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A63A3620FFFFFFFFFFFFFFFF", 16);
 
-
-        for(int i=0;i<10;i++) {
-            BigInteger n = BigInteger.probablePrime(20, new SecureRandom());
-            BigInteger[] tab = decomp(n);
-
-            System.out.println(n);
-            System.out.println(" s = " + tab[0] + " et d =  " + tab[1]);
-
-        }
+        System.out.println("n1 est " + MillerRabin(n1, 20));
 
 
     }
@@ -45,9 +48,41 @@ public class MillerRabin {
      */
     public static NATURE MillerRabin(BigInteger n, int cpt) {
 
+        NATURE ret = NATURE.INCONNU;
 
+        for(int c=1; c<=cpt; c++) {
 
-        return INCONNU;
+            BigInteger[] sd = decomp(n);
+            // to be reviewed
+            BigInteger a = (new BigInteger(n.bitLength(), new SecureRandom())).add(BigInteger.TWO).mod(n.subtract(BigInteger.ONE));
+            BigInteger tmp = a.modPow(sd[1], n);
+
+            if (tmp.equals(BigInteger.ONE) || tmp.equals(BigInteger.ONE.negate())) {
+                ret = NATURE.INCONNU;
+                continue;
+            }
+
+            BigInteger i;
+            for (i = BigInteger.ONE; i.compareTo(sd[0]) != 1; i = i.add(BigInteger.ONE)) {
+                BigInteger d2i = sd[1].multiply(BigInteger.TWO.pow(i.intValue()));
+                tmp = a.modPow(d2i, n);
+
+                if (tmp.equals(BigInteger.ONE.negate()))
+                    ret = NATURE.INCONNU;
+
+                if (tmp.equals(BigInteger.ONE))
+                    ret = NATURE.PREMIER;
+
+            }
+
+            if(i.compareTo(sd[0]) != 1 && !tmp.equals(BigInteger.ONE))
+                ret = NATURE.COMPLEXE;
+
+            System.out.println("Loop " + c + " conclusion " + ret);
+
+        }
+
+        return ret;
     }
 
 
