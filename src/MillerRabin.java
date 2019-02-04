@@ -126,10 +126,14 @@ public class MillerRabin {
     }
 
 
-    /*
-    ** fonction Eval
+    /**
+     * La fonction eval() qui prend en entrée une taille en bits b, le compteur cpt et
+     * donne en sortie le nombre d’itérations qu’il a fallu répéter avant de trouver un nombre probablement
+     * premier.
+     * @param b taille de n en bits
+     * @param cpt compteur pour millerRabin
+     * @return nombre d’itérations
      */
-
     public static int eval(int b, int cpt){
         int compteur=0;
 
