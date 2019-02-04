@@ -20,69 +20,78 @@ public class MillerRabin {
 //        System.out.println("ExpMod Num2^Num3 : " + expMod(bint1, bint2, bint3).toString(16));
 //        System.out.println("ExpMod Num2^Num3 : " + bint2.modPow(bint3, bint1).toString(16));
 //
-//
+
 //        for(int i=0;i<10;i++) {
 //            BigInteger n = BigInteger.probablePrime(20, new SecureRandom());
 //            BigInteger[] tab = decomp(n);
-//
-//            System.out.println(n);
-//            System.out.println(" s = " + tab[0] + " et d =  " + tab[1]);
+//            System.out.println("n = " + n + " s = " + tab[0] + " et d =  " + tab[1]);
 //
 //        }
+//
 
+        BigInteger n1 = BigInteger.valueOf(8);
+        System.out.println("n1, est-il premier ? : " + millerRabinTest(n1, 20));
+        System.out.println("n1, est-il premier ? : " + n1.isProbablePrime(100));
 
-        BigInteger n1 = new BigInteger("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A63A3620FFFFFFFFFFFFFFFF", 16);
+    }
 
-        System.out.println("n1 est " + MillerRabin(n1, 20));
+    /**
+     * cette methode implémente le test de Miller Rabin, en repetant l'algorithme de ce dernier cpt fois.
+     * @param n grand nombre entier
+     * @param cpt compteur de boucle
+     * @return false si le nombre est composé, true si le nombre est probablement premier
+     */
+    public static boolean millerRabinTest(BigInteger n, int cpt) {
 
+        for (int i=0; i<cpt; i++) {
+
+            if(!algoMillerRabin(n))
+                return false; // le nombre est composé
+        }
+
+        return true; // n est probablement premier
 
     }
 
     /**
      * Test de Miller Rabin, prend en parametre un nombre n et un compteur cpt et renvoie :
-     * PREMIER si le nombre est premier, COMPLEXE si le nombre est complexe et INCONNU si on peut rien dire
+     * true si le nombre est premier, false si le nombre est composé.
      * sur la nature du nombre.
      * @param n grand nombre entier
-     * @param cpt compteur
-     * @return la nature de nombre
+     * @return true si n est probablement premier, false si n est composé.
      */
-    public static NATURE MillerRabin(BigInteger n, int cpt) {
+    public static boolean algoMillerRabin(BigInteger n) {
 
-        NATURE ret = NATURE.INCONNU;
+        BigInteger[] sd = decomp(n);
+        // 1 < a < n-1  donc 2 <= a <= n-2 implique que a = 2 + rand % (((n-2)-2)+1)
+        BigInteger a = (new BigInteger(n.bitLength(), new SecureRandom())).mod(n.subtract(BigInteger.TWO).subtract(BigInteger.ONE)).add(BigInteger.TWO);
+        BigInteger tmp = a.modPow(sd[1], n);
 
-        for(int c=1; c<=cpt; c++) {
+//        System.out.println("a = " + a);
 
-            BigInteger[] sd = decomp(n);
-            // to be reviewed
-            BigInteger a = (new BigInteger(n.bitLength(), new SecureRandom())).add(BigInteger.TWO).mod(n.subtract(BigInteger.ONE));
-            BigInteger tmp = a.modPow(sd[1], n);
+//        System.out.println("n-1 = d2^s : \ns(" + sd[0] + ") \nd(" + sd[1] + ")");
 
-            if (tmp.equals(BigInteger.ONE) || tmp.equals(BigInteger.ONE.negate())) {
-                ret = NATURE.INCONNU;
-                continue;
-            }
+        if (tmp.equals(BigInteger.ONE) || tmp.equals(n.subtract(BigInteger.ONE)))
+            return true;
 
-            BigInteger i;
-            for (i = BigInteger.ONE; i.compareTo(sd[0]) != 1; i = i.add(BigInteger.ONE)) {
-                BigInteger d2i = sd[1].multiply(BigInteger.TWO.pow(i.intValue()));
-                tmp = a.modPow(d2i, n);
+        for (BigInteger i = BigInteger.ONE; i.compareTo(sd[0]) != 1; i = i.add(BigInteger.ONE)) {
 
-                if (tmp.equals(BigInteger.ONE.negate()))
-                    ret = NATURE.INCONNU;
+            BigInteger d2i = sd[1].multiply(BigInteger.TWO.pow(i.intValue()));
+            tmp = a.modPow(d2i, n);
 
-                if (tmp.equals(BigInteger.ONE))
-                    ret = NATURE.PREMIER;
+            if (tmp.equals(n.subtract(BigInteger.ONE)))
+                return true;
 
-            }
-
-            if(i.compareTo(sd[0]) != 1 && !tmp.equals(BigInteger.ONE))
-                ret = NATURE.COMPLEXE;
-
-            System.out.println("Loop " + c + " conclusion " + ret);
+            if (tmp.equals(BigInteger.ONE))
+                return false;
 
         }
 
-        return ret;
+        if(!tmp.equals(BigInteger.ONE))
+            return false;
+
+        return true;
+
     }
 
 
@@ -126,18 +135,6 @@ public class MillerRabin {
         tab[0]=s;
         tab[1]=d;
         return tab;
-    }
-
-    /**
-     * Cette enumeration represente les trois etats que le test de MILLER RABIN Peut retourner
-     * PREMIER = le nombre est premier
-     * COMPLEXE = le nombre est complexe
-     * INCONNU = on ne peut rien dire sur la nature du nombre
-     */
-    public static enum NATURE {
-        PREMIER,
-        COMPLEXE,
-        INCONNU
     }
 
 }
