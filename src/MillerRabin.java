@@ -1,5 +1,3 @@
-import org.jetbrains.annotations.Contract;
-
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
@@ -21,7 +19,7 @@ public class MillerRabin {
 //
 //        System.out.println("ExpMod Num2^Num3 : " + expMod(bint1, bint2, bint3).toString(16));
 //        System.out.println("ExpMod Num2^Num3 : " + bint2.modPow(bint3, bint1).toString(16));
-//
+
 
 //        for(int i=0;i<10;i++) {
 //            BigInteger n = BigInteger.probablePrime(20, new SecureRandom());
@@ -31,9 +29,9 @@ public class MillerRabin {
 //        }
 //
 
-//        BigInteger n1 = BigInteger.valueOf(8);
-//        System.out.println("n1, est-il premier ? : " + millerRabinTest(n1, 20));
-//        System.out.println("n1, est-il premier ? : " + n1.isProbablePrime(100));
+        BigInteger n1 = new BigInteger(20, new SecureRandom());
+        System.out.println("n1, est-il premier ? : " + millerRabinTest(n1, 20));
+        System.out.println("n1, est-il premier ? : " + n1.isProbablePrime(100));
 
         /*
          ** TESTER LES NOMBRES EN HEXADECIMAL
@@ -41,7 +39,7 @@ public class MillerRabin {
 
 
 
-        String s1 =("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A63A3620FFFFFFFFFFFFFFFF");
+/*        String s1 =("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A63A3620FFFFFFFFFFFFFFFF");
         String s2 =("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEC4FFFFFDAF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000002D9AB");
         String s3 =("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7EDEE386BFB5A899FA5AE9F24117C4B1FE649286651ECE65381FFFFFFFFFFFFFFFF");
         BigInteger n1 = new BigInteger(s1,16);
@@ -54,12 +52,19 @@ public class MillerRabin {
 
         }
          int k = eval(128,20);
-        System.out.println(k);
+        System.out.println(k);*/
 
+/*        int b = 2048;
+        int k = 100;
 
+        int s = 0;
+        for(int i=1; i<=k; i++){
+            int tmp = eval(b, 20);
+            System.out.println(b+"["+i+"] : " + tmp);
+            s += tmp;
+        }
 
-
-
+        System.out.println(b + "[Moy] : " + (double)s/k);*/
 
     }
 
@@ -96,11 +101,7 @@ public class MillerRabin {
         BigInteger[] sd = decomp(n);
         // 1 < a < n-1  donc 2 <= a <= n-2 implique que a = 2 + rand % (((n-2)-2)+1)
         BigInteger a = (new BigInteger(n.bitLength(), new SecureRandom())).mod(n.subtract(BigInteger.valueOf(2)).subtract(BigInteger.ONE)).add(BigInteger.valueOf(2));
-        BigInteger tmp = a.modPow(sd[1], n);
-
-//        System.out.println("a = " + a);
-
-//        System.out.println("n-1 = d2^s : \ns(" + sd[0] + ") \nd(" + sd[1] + ")");
+        BigInteger tmp = expMod(n, a, sd[1]);
 
         if (tmp.equals(BigInteger.ONE) || tmp.equals(n.subtract(BigInteger.ONE)))
             return true;
@@ -108,7 +109,7 @@ public class MillerRabin {
         for (BigInteger i = BigInteger.ONE; i.compareTo(sd[0]) != 1; i = i.add(BigInteger.ONE)) {
 
             BigInteger d2i = sd[1].multiply(BigInteger.valueOf(2).pow(i.intValue()));
-            tmp = a.modPow(d2i, n);
+            tmp = expMod(n, a, d2i);
 
             if (tmp.equals(n.subtract(BigInteger.ONE)))
                 return true;
@@ -138,11 +139,9 @@ public class MillerRabin {
         int compteur=0;
 
         BigInteger n = (new BigInteger(b, new SecureRandom()));
-        System.out.println("valeur de n est : "+n);
         while (!millerRabinTest(n,cpt)) {
             compteur++;
             n = (new BigInteger(b, new SecureRandom()));
-            System.out.println("nouvelle valeur de n est : "+n);
         }
 
         return compteur;
@@ -166,8 +165,8 @@ public class MillerRabin {
             return a.mod(n);
 
         if(t.getLowestSetBit() != 0)
-            return expMod(n, a.pow(2), t.divide(BigInteger.valueOf(2))).mod(n);
-        return a.multiply(expMod(n, a.pow(2), t.subtract(BigInteger.ONE).divide(BigInteger.valueOf(2)))).mod(n);
+            return expMod(n, a.pow(2).mod(n), t.divide(BigInteger.valueOf(2))).mod(n);
+        return a.multiply(expMod(n, a.pow(2).mod(n), t.subtract(BigInteger.ONE).divide(BigInteger.valueOf(2)))).mod(n);
 
     }
 
