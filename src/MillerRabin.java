@@ -9,16 +9,16 @@ public class MillerRabin {
      */
     public static void main(String[] args) {
 
-//        BigInteger bint1 = new BigInteger(20, new SecureRandom());
-//        BigInteger bint2 = new BigInteger(20, new SecureRandom());
-//        BigInteger bint3 = new BigInteger(20, new SecureRandom());
-//
-//        System.out.println("Num 1 : " + bint1);
-//        System.out.println("Num 2 : " + bint2);
-//        System.out.println("Num 3 : " + bint3);
-//
-//        System.out.println("ExpMod Num2^Num3 : " + expMod(bint1, bint2, bint3).toString(16));
-//        System.out.println("ExpMod Num2^Num3 : " + bint2.modPow(bint3, bint1).toString(16));
+        BigInteger bint1 = new BigInteger(20, new SecureRandom());
+        BigInteger bint2 = new BigInteger(20, new SecureRandom());
+        BigInteger bint3 = new BigInteger(20, new SecureRandom());
+
+        System.out.println("Num 1 : " + bint1);
+        System.out.println("Num 2 : " + bint2);
+        System.out.println("Num 3 : " + bint3);
+
+        System.out.println("ExpMod Num2^Num3 : " + expMod(bint1, bint2, bint3).toString(16));
+        System.out.println("ExpMod Num2^Num3 : " + bint2.modPow(bint3, bint1).toString(16));
 
 
 //        for(int i=0;i<10;i++) {
@@ -28,10 +28,10 @@ public class MillerRabin {
 //
 //        }
 //
-
-        BigInteger n1 = new BigInteger(20, new SecureRandom());
-        System.out.println("n1, est-il premier ? : " + millerRabinTest(n1, 20));
-        System.out.println("n1, est-il premier ? : " + n1.isProbablePrime(100));
+//
+//        BigInteger n1 = new BigInteger(20, new SecureRandom());
+//        System.out.println("n1, est-il premier ? : " + millerRabinTest(n1, 20));
+//        System.out.println("n1, est-il premier ? : " + n1.isProbablePrime(100));
 
         /*
          ** TESTER LES NOMBRES EN HEXADECIMAL
@@ -158,8 +158,6 @@ public class MillerRabin {
      * @return
      */
     public static BigInteger expMod(BigInteger n, BigInteger a, BigInteger t) {
-
-        System.out.println("ExpMod(" + n + ", " + a + ", " + t + ").");
 
         if(t.equals(BigInteger.ONE))
             return a.mod(n);
