@@ -9,62 +9,128 @@ public class MillerRabin {
      */
     public static void main(String[] args) {
 
-        BigInteger bint1 = new BigInteger(20, new SecureRandom());
-        BigInteger bint2 = new BigInteger(20, new SecureRandom());
-        BigInteger bint3 = new BigInteger(20, new SecureRandom());
+        BigInteger a,t,n;
+        int rpt, cpt;
 
-        System.out.println("Num 1 : " + bint1);
-        System.out.println("Num 2 : " + bint2);
-        System.out.println("Num 3 : " + bint3);
-
-        System.out.println("ExpMod Num2^Num3 : " + expMod(bint1, bint2, bint3).toString(16));
-        System.out.println("ExpMod Num2^Num3 : " + bint2.modPow(bint3, bint1).toString(16));
-
-
-//        for(int i=0;i<10;i++) {
-//            BigInteger n = BigInteger.probablePrime(20, new SecureRandom());
-//            BigInteger[] tab = decomp(n);
-//            System.out.println("n = " + n + " s = " + tab[0] + " et d =  " + tab[1]);
-//
-//        }
-//
-//
-//        BigInteger n1 = new BigInteger(20, new SecureRandom());
-//        System.out.println("n1, est-il premier ? : " + millerRabinTest(n1, 20));
-//        System.out.println("n1, est-il premier ? : " + n1.isProbablePrime(100));
-
-        /*
-         ** TESTER LES NOMBRES EN HEXADECIMAL
-         */
-
-
-
-/*        String s1 =("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A63A3620FFFFFFFFFFFFFFFF");
-        String s2 =("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEC4FFFFFDAF0000000000000000000000000000000000000000000000000000000000000000000000000000000000000002D9AB");
-        String s3 =("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7EDEE386BFB5A899FA5AE9F24117C4B1FE649286651ECE65381FFFFFFFFFFFFFFFF");
-        BigInteger n1 = new BigInteger(s1,16);
-        BigInteger n2 = new BigInteger(s2,16);
-        BigInteger n3 = new BigInteger(s3,16);
-        BigInteger tabInt[] = {n1, n2, n3};
-        for (int i =0; i<3;i++){
-            if(millerRabinTest(tabInt[i],20)){System.out.println("n"+i+" est premier");}
-            else {System.out.println("n"+i+" n'est pas premier");}
-
-        }
-         int k = eval(128,20);
-        System.out.println(k);*/
-
-/*        int b = 2048;
-        int k = 100;
-
-        int s = 0;
-        for(int i=1; i<=k; i++){
-            int tmp = eval(b, 20);
-            System.out.println(b+"["+i+"] : " + tmp);
-            s += tmp;
+        if(args.length < 2) {
+            System.out.println("Tapez une de ces instructions pour avoie de l'aide :");
+            System.out.println("    java mr decomp");
+            System.out.println("    java mr expmod");
+            System.out.println("    java mr miller");
+            System.out.println("    java mr eval");
+            return;
         }
 
-        System.out.println(b + "[Moy] : " + (double)s/k);*/
+        switch(args[0]) {
+
+            case "decomp":
+                if (args.length != 3){
+                    System.out.println("Veuillez suivre cette expression :");
+                    System.out.println("    java mr decomp <n> <cpt>");
+                    System.out.println("n      le nombre entier a tester en Hexadecimal\n" +
+                                       "       mettez 0 pour qu'il sera choisi au hasard.");
+                    System.out.println("rpt    nombre de répétition de la methode.");
+                    return;
+                }
+
+                System.out.print("DECOMPE PARAMS : ");
+                n = new BigInteger(args[1], 16);
+                if(n.equals(BigInteger.ZERO))
+                    n = new BigInteger(128, new SecureRandom());
+                System.out.print("n = " + n + " | ");
+                rpt = Integer.parseInt(args[2]); System.out.println("rpt = " + rpt);
+
+                for (int i=1 ; i <= rpt ; i++) {
+                    BigInteger[] sd = decomp(n);
+                    System.out.println("decomp["+ i +"](" + n + ") = (s=" + sd[0] + ", d=" + sd[1] + ")");
+                }
+                break;
+
+            case "expmod":
+                if (args.length != 4 && args.length != 2){
+                    System.out.println("Veuillez suivre une de ces expressions :");
+                    System.out.println("    java mr expmod <a> <t> <n>");
+                    System.out.println("    java mr expmod <rpt>");
+                    System.out.println("a      la base en Hexadecimal");
+                    System.out.println("t      l'exposant en Hexadecimal");
+                    System.out.println("n      le modulo en Hexadecimal");
+                    System.out.println("rpt    nombre de répétition de expmod\n" +
+                                       "       si vous choisissez cette expression les parametres a, t et n\n" +
+                                       "       seront choisis aléatoirement");
+                    return;
+                }
+
+                System.out.print("EXPMOD PARAMS : ");
+                if(args.length == 4) {
+                    a = new BigInteger(args[1], 16); System.out.print("a = " + a + " | ");
+                    t = new BigInteger(args[2], 16); System.out.print("t = " + t + " | ");
+                    n = new BigInteger(args[3], 16); System.out.println("n = " + n);
+
+                    System.out.println("expMod(" + a + ", " + t + ", " + n + ") = " + expMod(n, a, t));
+                    return;
+
+                }
+
+                SecureRandom sr = new SecureRandom();
+                rpt = Integer.parseInt(args[1]); System.out.println("rpt = " + rpt);
+
+                for (int i=1; i<= rpt; i++) {
+                    a = new BigInteger(128, sr);
+                    t = new BigInteger(128, sr);
+                    n = new BigInteger(128, sr);
+                    System.out.println("expMod[" + i + "](" + a.toString(16) + ", " + t.toString(16) + ", " + n.toString(16) + ") = " + expMod(n, a, t).toString(16));
+                }
+                break;
+
+            case "miller":
+                if (args.length != 3){
+                    System.out.println("Veuillez suivre cette expression :");
+                    System.out.println("    java mr miller <n> <cpt>");
+                    System.out.println("n      le nombre entier a tester en Hexadecimal");
+                    System.out.println("cpt    compteur d'algorithme de miller rabin");
+                    return;
+                }
+
+                System.out.print("MILLER PARAMS : ");
+                n = new BigInteger(args[1], 16); System.out.print("n = " + n + " | ");
+                cpt = Integer.parseInt(args[2]); System.out.println("cpt = " + cpt);
+
+                System.out.println("millerRabin("+ n +") = " + (millerRabinTest(n, cpt)?"probablement premier":"composé"));
+                break;
+
+            case "eval":
+                if (args.length != 4){
+                    System.out.println("Veuillez suivre cette expression :");
+                    System.out.println("    java mr eval <bits> <cpt> <rpt>");
+                    System.out.println("bits   taille en bits de nombre entier");
+                    System.out.println("cpt    compteur d'algorithme de miller rabin");
+                    System.out.println("rpt    nombre de répétition de la fonction eval()");
+                    return;
+                }
+
+                System.out.print("EVAL PARAMS : ");
+                int b = Integer.parseInt(args[1]); System.out.print("bits = " + b + " | ");
+                int cmpt = Integer.parseInt(args[2]); System.out.print("cpt = " + cmpt + " | ");
+                rpt = Integer.parseInt(args[3]); System.out.println("rpt = " + rpt);
+
+                int s = 0;
+                int i;
+                for (i=1; i <= rpt; i++){
+                    System.out.print("eval[" + i + "]" );
+                    s += eval(b, cmpt);
+                    System.out.println();
+                }
+                System.out.println("eval[ Moyenne ] = " + (s/--i));
+                break;
+
+            default:
+                System.out.println("Tapez une de ces instructions pour avoie de l'aide :");
+                System.out.println("    java mr decomp");
+                System.out.println("    java mr expmod");
+                System.out.println("    java mr miller");
+                System.out.println("    java mr eval");
+
+        }
 
     }
 
@@ -143,6 +209,8 @@ public class MillerRabin {
             compteur++;
             n = (new BigInteger(b, new SecureRandom()));
         }
+
+        System.out.print("(" + n + ") = " + compteur);
 
         return compteur;
     }
