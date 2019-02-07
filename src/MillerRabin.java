@@ -14,10 +14,10 @@ public class MillerRabin {
 
         if(args.length < 2) {
             System.out.println("Tapez une de ces instructions pour avoie de l'aide :");
-            System.out.println("    java mr decomp");
-            System.out.println("    java mr expmod");
-            System.out.println("    java mr miller");
-            System.out.println("    java mr eval");
+            System.out.println("    java MillerRabin decomp");
+            System.out.println("    java MillerRabin expmod");
+            System.out.println("    java MillerRabin miller");
+            System.out.println("    java MillerRabin eval");
             return;
         }
 
@@ -26,7 +26,7 @@ public class MillerRabin {
             case "decomp":
                 if (args.length != 3){
                     System.out.println("Veuillez suivre cette expression :");
-                    System.out.println("    java mr decomp <n> <cpt>");
+                    System.out.println("    java MillerRabin decomp <n> <cpt>");
                     System.out.println("n      le nombre entier a tester en Hexadecimal\n" +
                                        "       mettez 0 pour qu'il sera choisi au hasard.");
                     System.out.println("rpt    nombre de répétition de la methode.");
@@ -49,8 +49,8 @@ public class MillerRabin {
             case "expmod":
                 if (args.length != 4 && args.length != 2){
                     System.out.println("Veuillez suivre une de ces expressions :");
-                    System.out.println("    java mr expmod <a> <t> <n>");
-                    System.out.println("    java mr expmod <rpt>");
+                    System.out.println("    java MillerRabin expmod <a> <t> <n>");
+                    System.out.println("    java MillerRabin expmod <rpt>");
                     System.out.println("a      la base en Hexadecimal");
                     System.out.println("t      l'exposant en Hexadecimal");
                     System.out.println("n      le modulo en Hexadecimal");
@@ -85,7 +85,7 @@ public class MillerRabin {
             case "miller":
                 if (args.length != 3){
                     System.out.println("Veuillez suivre cette expression :");
-                    System.out.println("    java mr miller <n> <cpt>");
+                    System.out.println("    java MillerRabin miller <n> <cpt>");
                     System.out.println("n      le nombre entier a tester en Hexadecimal");
                     System.out.println("cpt    compteur d'algorithme de miller rabin");
                     return;
@@ -101,7 +101,7 @@ public class MillerRabin {
             case "eval":
                 if (args.length != 4){
                     System.out.println("Veuillez suivre cette expression :");
-                    System.out.println("    java mr eval <bits> <cpt> <rpt>");
+                    System.out.println("    java MillerRabin eval <bits> <cpt> <rpt>");
                     System.out.println("bits   taille en bits de nombre entier");
                     System.out.println("cpt    compteur d'algorithme de miller rabin");
                     System.out.println("rpt    nombre de répétition de la fonction eval()");
@@ -125,10 +125,10 @@ public class MillerRabin {
 
             default:
                 System.out.println("Tapez une de ces instructions pour avoie de l'aide :");
-                System.out.println("    java mr decomp");
-                System.out.println("    java mr expmod");
-                System.out.println("    java mr miller");
-                System.out.println("    java mr eval");
+                System.out.println("    java MillerRabin decomp");
+                System.out.println("    java MillerRabin expmod");
+                System.out.println("    java MillerRabin miller");
+                System.out.println("    java MillerRabin eval");
 
         }
 
