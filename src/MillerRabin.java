@@ -1,4 +1,5 @@
 import java.math.BigInteger;
+import java.nio.charset.IllegalCharsetNameException;
 import java.security.SecureRandom;
 
 public class MillerRabin {
@@ -11,9 +12,13 @@ public class MillerRabin {
 
         BigInteger a,t,n;
         int rpt, cpt;
+        boolean yes = false;
 
-        if(args.length < 2) {
-            System.out.println("Tapez une de ces instructions pour avoie de l'aide :");
+
+//        System.out.println(args.length);
+
+        if(args.length < 1) {
+            System.out.println("Tapez une de ces instructions pour avoie de l'aide 1:");
             System.out.println("    java MillerRabin decomp");
             System.out.println("    java MillerRabin expmod");
             System.out.println("    java MillerRabin miller");
@@ -26,7 +31,7 @@ public class MillerRabin {
             case "decomp":
                 if (args.length != 3){
                     System.out.println("Veuillez suivre cette expression :");
-                    System.out.println("    java MillerRabin decomp <n> <cpt>");
+                    System.out.println("    java MillerRabin decomp <n> <cpt>\n");
                     System.out.println("n      le nombre entier a tester en Hexadecimal\n" +
                                        "       mettez 0 pour qu'il sera choisi au hasard.");
                     System.out.println("rpt    nombre de répétition de la methode.");
@@ -36,11 +41,13 @@ public class MillerRabin {
                 System.out.print("DECOMPE PARAMS : ");
                 n = new BigInteger(args[1], 16);
                 if(n.equals(BigInteger.ZERO))
-                    n = new BigInteger(128, new SecureRandom());
+                    yes = true;
                 System.out.print("n = " + n + " | ");
                 rpt = Integer.parseInt(args[2]); System.out.println("rpt = " + rpt);
 
                 for (int i=1 ; i <= rpt ; i++) {
+                    if(yes)
+                        n = new BigInteger(128, new SecureRandom());
                     BigInteger[] sd = decomp(n);
                     System.out.println("decomp["+ i +"](" + n + ") = (s=" + sd[0] + ", d=" + sd[1] + ")");
                 }
@@ -50,7 +57,7 @@ public class MillerRabin {
                 if (args.length != 4 && args.length != 2){
                     System.out.println("Veuillez suivre une de ces expressions :");
                     System.out.println("    java MillerRabin expmod <a> <t> <n>");
-                    System.out.println("    java MillerRabin expmod <rpt>");
+                    System.out.println("    java MillerRabin expmod <rpt>\n");
                     System.out.println("a      la base en Hexadecimal");
                     System.out.println("t      l'exposant en Hexadecimal");
                     System.out.println("n      le modulo en Hexadecimal");
@@ -83,25 +90,39 @@ public class MillerRabin {
                 break;
 
             case "miller":
-                if (args.length != 3){
+                if (args.length != 3 && args.length != 4){
                     System.out.println("Veuillez suivre cette expression :");
-                    System.out.println("    java MillerRabin miller <n> <cpt>");
+                    System.out.println("    java MillerRabin miller <n> <cpt> [<rpt>]\n");
                     System.out.println("n      le nombre entier a tester en Hexadecimal");
                     System.out.println("cpt    compteur d'algorithme de miller rabin");
+                    System.out.println("rpt    nombre de répétition de test Miller Rabin\n" +
+                            "       si vous choisissez cette expression le nombre n\n" +
+                            "       sera choisi aléatoirement");
                     return;
                 }
 
                 System.out.print("MILLER PARAMS : ");
                 n = new BigInteger(args[1], 16); System.out.print("n = " + n + " | ");
-                cpt = Integer.parseInt(args[2]); System.out.println("cpt = " + cpt);
+                cpt = Integer.parseInt(args[2]); System.out.print("cpt = " + cpt);
 
-                System.out.println("millerRabin("+ n +") = " + (millerRabinTest(n, cpt)?"probablement premier":"composé"));
+                if(args.length == 3) {
+                    System.out.println();
+                    System.out.println("millerRabin(" + n + ") = " + (millerRabinTest(n, cpt) ? "probablement premier" : "composé"));
+                    return;
+                }
+
+                rpt = Integer.parseInt(args[3]); System.out.println(" | rpt = " + rpt);
+                for(int i=1; i<= rpt; i++){
+                    n = new BigInteger(128, new SecureRandom());
+                    System.out.println("millerRabin["+ i +"](" + n + ") = " + (millerRabinTest(n, cpt) ? "probablement premier" : "composé"));
+                }
+
                 break;
 
             case "eval":
                 if (args.length != 4){
                     System.out.println("Veuillez suivre cette expression :");
-                    System.out.println("    java MillerRabin eval <bits> <cpt> <rpt>");
+                    System.out.println("    java MillerRabin eval <bits> <cpt> <rpt>\n");
                     System.out.println("bits   taille en bits de nombre entier");
                     System.out.println("cpt    compteur d'algorithme de miller rabin");
                     System.out.println("rpt    nombre de répétition de la fonction eval()");
@@ -124,7 +145,7 @@ public class MillerRabin {
                 break;
 
             default:
-                System.out.println("Tapez une de ces instructions pour avoie de l'aide :");
+                System.out.println("Tapez une de ces instructions pour avoie de l'aide 2:");
                 System.out.println("    java MillerRabin decomp");
                 System.out.println("    java MillerRabin expmod");
                 System.out.println("    java MillerRabin miller");

@@ -7,9 +7,9 @@
 \textclass article
 \use_default_options true
 \maintain_unincluded_children false
-\language english
+\language french
 \language_package default
-\inputencoding auto
+\inputencoding utf8
 \fontencoding global
 \font_roman "default" "default"
 \font_sans "default" "default"
@@ -28,10 +28,11 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
-\paperfontsize default
+\paperfontsize 12
+\spacing single
 \use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_package amsmath 1
 \use_package amssymb 1
 \use_package cancel 1
@@ -44,6 +45,7 @@
 \use_package undertilde 1
 \cite_engine basic
 \cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
@@ -55,13 +57,17 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
 \paragraph_indentation default
 \is_math_indent 0
 \math_numbering_side default
-\quotes_style english
+\quotes_style french
 \dynamic_quotes 0
 \papercolumns 1
 \papersides 1
@@ -89,46 +95,218 @@ BENKARRAD Alaa Eddine.
 \end_inset
 
 CHERIFI Abdelaziz.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+date{}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Subsection*
 Réponse 1.
 \end_layout
 
+\begin_layout Enumerate
+Le langage de programmation que nous avons choisi est : Langage JAVA 
+\end_layout
+
+\begin_layout Enumerate
+La bibliothèque permettant de générer des nombres entiers de grande taille
+ que nous allons utiliser est la bibliothèque BigInteger
+\begin_inset CommandInset citation
+LatexCommand cite
+key "BigInt"
+literal "false"
+
+\end_inset
+
+ de JAVA.
+\end_layout
+
+\begin_layout Enumerate
+Les opérations implémentées dans cette bibliothèque sont les opérations
+ habituelles (addition, multiplication, division, etc…), en plus de ça,
+ cette bibliothèque offre des opérations de calcul en arithmétique modulaire,
+ calcul du PGCD, génération de nombre premier, test pour savoir si un entier
+ est premier, etc….
+\end_layout
+
 \begin_layout Subsection*
 Réponse 2.
+\end_layout
+
+\begin_layout Standard
+Les nombres aléatoires sont des nombres qui se produisent dans une séquence
+ telle que deux conditions sont remplies
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rand"
+literal "false"
+
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Enumerate
+les valeurs sont uniformément réparties sur un intervalle ou un ensemble
+ défini.
+\end_layout
+
+\begin_layout Enumerate
+il est impossible de prédire les valeurs futures en fonction des valeurs
+ passées ou présentes.
+\end_layout
+
+\begin_layout Standard
+Autrement dit, une des conditions les plus importantes d'un nombre aléatoire
+ est d'être indépendant, car cela permet d'établir aucune corrélation entre
+ des nombres successifs.
+ Il faut veiller à ce que la fréquence de ces nombres aléatoires soit approximat
+ivement la même.
+ Par conséquent, en théorie, il n'est pas facile de générer un nombre aléatoire
+ long
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rand2"
+literal "false"
+
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Subsection*
 Réponse 3.
 \end_layout
 
+\begin_layout Standard
+Implémentez la fonction Decomp() qui prend en entrée n et renvoie s et d
+ tel que n − 1 = 2s d avec d impair.
+ Testez-la sur 10000 valeurs différentes.
+\end_layout
+
 \begin_layout Subsection*
 Réponse 4.
 \end_layout
 
+\begin_layout Standard
+Implémentez la fonction ExpMod().
+ Testez-la sur 10000 valeurs différentes.
+\end_layout
+
 \begin_layout Subsection*
 Réponse 5.
+ ne pas répondre
+\end_layout
+
+\begin_layout Standard
+Implémentez le test complet de Miller-Rabin MillerRabin() qui prend en entrée
+ n et un nombre d’itérations du test cpt.
+ Cette fonction répète le test décrit à la Section 2.2 cpt fois et renvoie
+ ensuite ’0’ si le nombre est composé et ’1’ si le nombre est probablement
+ premier.
 \end_layout
 
 \begin_layout Subsection*
 Réponse 6.
 \end_layout
 
+\begin_layout Standard
+Utilisez votre fonction pour tester les 3 nombres suivants (écrits en hexadécima
+l).
+\end_layout
+
+\begin_layout Standard
+Dites si chaque nombre est pseudo-premier ou composé avec cpt = 20.
+\end_layout
+
 \begin_layout Subsection*
 Réponse 7.
+ ne pas répondre
+\end_layout
+
+\begin_layout Standard
+Ecrivez une fonction Eval()
 \end_layout
 
 \begin_layout Subsection*
 Réponse 8.
 \end_layout
 
+\begin_layout Standard
+Pour tester votre fonction Eval(), répétez 100 fois la fonction pour les
+ valeurs de b suivantes : 128, 256, 512, 1024, 2048 et 4096.
+ Faites un graphique avec en abscisse la taille en bits du nombre et en
+ ordonnée la moyenne sur les 100 tests de la valeur de Compteur.
+\end_layout
+
 \begin_layout Subsection*
 Réponse 9.
 \end_layout
 
+\begin_layout Standard
+Que constatez-vous ?
+\end_layout
+
 \begin_layout Subsection*
 Réponse 10.
+\end_layout
+
+\begin_layout Standard
+Le test qui permet de garantir si un nombre premier est le test d’AKS (aussi
+ connu comme le test de primalité Agrawal-Kayal-Saxena) ce test est un test
+ déterministe et généraliste, il permet de déterminer de façon certaine
+ si un nombre est premier contrairement aux tests probabilistes.
+\end_layout
+
+\begin_layout Standard
+- Sa complexité temporelle originale est en 
+\begin_inset Formula $\mathcal{O}((log\ n)^{12})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "BigInt"
+literal "false"
+
+\end_inset
+
+https://docs.oracle.com/javase/7/docs/api/java/math/BigInteger.html.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Rand"
+literal "false"
+
+\end_inset
+
+https://whatis.techtarget.com/definition/random-numbers
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Rand2"
+literal "false"
+
+\end_inset
+
+https://www.techopedia.com/definition/31706/random-number
 \end_layout
 
 \end_body
