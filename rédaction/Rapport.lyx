@@ -28,6 +28,7 @@
 \output_sync 0
 \bibtex_command default
 \index_command default
+\float_placement H
 \paperfontsize 12
 \spacing single
 \use_hyperref false
@@ -184,37 +185,19 @@ literal "false"
 .
 \end_layout
 
-\begin_layout Subsection*
-Réponse 3.
-\end_layout
-
 \begin_layout Standard
-Implémentez la fonction Decomp() qui prend en entrée n et renvoie s et d
- tel que n − 1 = 2s d avec d impair.
- Testez-la sur 10000 valeurs différentes.
-\end_layout
+Pour cela, nous utilisons, dans notre implémentation, la bibliothèque SecureRand
+om pour générer les nombres aléatoires.
+ Cette classe fournit un générateur de nombres aléatoires cryptographiquement
+ puissant, comme décrit dans la RFC 1750
+\begin_inset CommandInset citation
+LatexCommand cite
+key "SecRand"
+literal "false"
 
-\begin_layout Subsection*
-Réponse 4.
-\end_layout
+\end_inset
 
-\begin_layout Standard
-La validation de la fonction Expmod() implémentée est faite a l'aide de
- la methode modPow() predéfini dans BigInteger en comparant les resultats
- des deux methodes.
-\end_layout
-
-\begin_layout Subsection*
-Réponse 5.
- ne pas répondre
-\end_layout
-
-\begin_layout Standard
-Implémentez le test complet de Miller-Rabin MillerRabin() qui prend en entrée
- n et un nombre d’itérations du test cpt.
- Cette fonction répète le test décrit à la Section 2.2 cpt fois et renvoie
- ensuite ’0’ si le nombre est composé et ’1’ si le nombre est probablement
- premier.
+.
 \end_layout
 
 \begin_layout Subsection*
@@ -222,21 +205,33 @@ Réponse 6.
 \end_layout
 
 \begin_layout Standard
-Utilisez votre fonction pour tester les 3 nombres suivants (écrits en hexadécima
-l).
+En executant notre implémentation avec les 3 nombres (n1, n2 et n3 écrits
+ en hexadécimal) et cpt = 20, nous avons obtenue les resultats suivants
+ :
 \end_layout
 
-\begin_layout Standard
-Dites si chaque nombre est pseudo-premier ou composé avec cpt = 20.
+\begin_layout Itemize
+
+\series bold
+n1
+\series default
+ est pseudo-premier.
 \end_layout
 
-\begin_layout Subsection*
-Réponse 7.
- ne pas répondre
+\begin_layout Itemize
+
+\series bold
+n2
+\series default
+ est composé.
 \end_layout
 
-\begin_layout Standard
-Ecrivez une fonction Eval()
+\begin_layout Itemize
+
+\series bold
+n3
+\series default
+ est pseudo-premier.
 \end_layout
 
 \begin_layout Subsection*
@@ -244,12 +239,33 @@ Réponse 8.
 \end_layout
 
 \begin_layout Standard
+La figure ci-apres represente des courbes des differents tests de la fonction
+ Eval().
+ Ces resultat ont été pris en executons la fonction Eval() 100 fois avec
+ les valeurs de b suivantes : 128, 256, 512, 1024, 2048 et 4096.
+\end_layout
+
+\begin_layout Standard
+\align center
 \begin_inset Float figure
 wide false
 sideways false
-status open
+status collapsed
 
 \begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x128.jpg
+	scale 20
+
+\end_inset
+
 
 \end_layout
 
@@ -257,7 +273,37 @@ status open
 \begin_inset Caption Standard
 
 \begin_layout Plain Layout
-Differents test d'eval
+128 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x256.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+256 bits
 \end_layout
 
 \end_inset
@@ -266,6 +312,198 @@ Differents test d'eval
 \end_layout
 
 \begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x512.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+512 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x1024.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+1024 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x2048.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+2048 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x4096.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+4096 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename means.jpg
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+courbe des moyennes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+tests de fonction eval.
+\end_layout
+
+\end_inset
+
 
 \end_layout
 
@@ -275,10 +513,12 @@ Differents test d'eval
 \end_layout
 
 \begin_layout Standard
-Pour tester votre fonction Eval(), répétez 100 fois la fonction pour les
- valeurs de b suivantes : 128, 256, 512, 1024, 2048 et 4096.
- Faites un graphique avec en abscisse la taille en bits du nombre et en
- ordonnée la moyenne sur les 100 tests de la valeur de Compteur.
+Sur les figures (a-f), l'axe des abscisses représente les differentes executions
+ tandis que celui des ordonnées représente la complexité ().
+ La courbe des executions est en bleue et la courbe en rouge represente
+ la moyenne.
+ La figure (g) represente la la courbe de complexité (en ordonnée) selon
+ la taille de nombre en bits (en abscisse).
 \end_layout
 
 \begin_layout Subsection*
@@ -301,8 +541,21 @@ Le test qui permet de garantir si un nombre premier est le test d’AKS (aussi
 \end_layout
 
 \begin_layout Standard
-- Sa complexité temporelle originale est en 
-\begin_inset Formula $\mathcal{O}((log\ n)^{12})$
+Sa complexité temporelle originale est en 
+\begin_inset Formula $\mathcal{O}((log\ n)^{10.5})$
+\end_inset
+
+ en mars 2003, d’autres mathématiciens ont essayés d’améliorer sa complexité
+ en 
+\begin_inset Formula $\mathcal{O}((log\ n)^{4})$
+\end_inset
+
+ en revanche, l’algo en cette complexité n’était pas déterministe 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "aks"
+literal "false"
+
 \end_inset
 
 .
@@ -316,7 +569,19 @@ literal "false"
 
 \end_inset
 
-https://docs.oracle.com/javase/7/docs/api/java/math/BigInteger.html.
+ BigInteger ( JavaDoc), https://docs.oracle.com/javase/7/docs/api/java/math/BigInt
+eger.html.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "SecRand"
+literal "false"
+
+\end_inset
+
+ SecureRandom (JavaDoc),
 \end_layout
 
 \begin_layout Bibliography
@@ -327,7 +592,7 @@ literal "false"
 
 \end_inset
 
-https://whatis.techtarget.com/definition/random-numbers
+ TechTarget, https://whatis.techtarget.com/definition/random-numbers
 \end_layout
 
 \begin_layout Bibliography
@@ -338,7 +603,19 @@ literal "false"
 
 \end_inset
 
-https://www.techopedia.com/definition/31706/random-number
+ Techopedia, https://www.techopedia.com/definition/31706/random-number
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "aks"
+literal "false"
+
+\end_inset
+
+ L’algorithmeAKS, http://www.trigofacile.com/maths/curiosite/primarite/aks/pdf/alg
+orithme-aks.pdf
 \end_layout
 
 \end_body
