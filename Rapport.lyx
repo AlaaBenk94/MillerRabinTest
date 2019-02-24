@@ -1,0 +1,634 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language french
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\float_placement H
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style french
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Introduction à la cryptographie
+\begin_inset Newline newline
+\end_inset
+
+Devoir Maison - Test de Miller-Rabin
+\end_layout
+
+\begin_layout Author
+BENKARRAD Alaa Eddine.
+\begin_inset Newline newline
+\end_inset
+
+CHERIFI Abdelaziz.
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+date{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Réponse 1.
+\end_layout
+
+\begin_layout Enumerate
+Le langage de programmation que nous avons choisi est : Langage JAVA 
+\end_layout
+
+\begin_layout Enumerate
+La bibliothèque permettant de générer des nombres entiers de grande taille
+ que nous allons utiliser est la bibliothèque BigInteger
+\begin_inset CommandInset citation
+LatexCommand cite
+key "BigInt"
+literal "false"
+
+\end_inset
+
+ de JAVA.
+\end_layout
+
+\begin_layout Enumerate
+Les opérations implémentées dans cette bibliothèque sont les opérations
+ habituelles (addition, multiplication, division, etc…), en plus de ça,
+ cette bibliothèque offre des opérations de calcul en arithmétique modulaire,
+ calcul du PGCD, génération de nombre premier, test pour savoir si un entier
+ est premier, etc….
+\end_layout
+
+\begin_layout Subsection*
+Réponse 2.
+\end_layout
+
+\begin_layout Standard
+Les nombres aléatoires sont des nombres qui se produisent dans une séquence
+ telle que deux conditions sont remplies
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rand"
+literal "false"
+
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Enumerate
+Les valeurs sont uniformément réparties sur un intervalle ou un ensemble
+ défini.
+\end_layout
+
+\begin_layout Enumerate
+Il est impossible de prédire les valeurs futures en fonction des valeurs
+ passées ou présentes.
+\end_layout
+
+\begin_layout Standard
+Autrement dit, une des conditions les plus importantes d'un nombre aléatoire
+ est d'être indépendant, car cela permet d'établir aucune corrélation entre
+ des nombres successifs.
+ Il faut veiller à ce que la fréquence de ces nombres aléatoires soit approximat
+ivement la même.
+ Par conséquent, en théorie, il n'est pas facile de générer un nombre aléatoire
+ long
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Rand2"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Pour cela, nous utilisons, dans notre implémentation, la bibliothèque SecureRand
+om pour générer les nombres aléatoires.
+ Cette classe fournit un générateur de nombres aléatoires cryptographiquement
+ puissant, comme décrit dans la RFC 1750
+\begin_inset CommandInset citation
+LatexCommand cite
+key "SecRand"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+Réponse 6.
+\end_layout
+
+\begin_layout Standard
+En executant notre implémentation avec les 3 nombres (n1, n2 et n3 écrits
+ en hexadécimal) et cpt = 20, nous avons obtenue les resultats suivants
+ :
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+n1
+\series default
+ est pseudo-premier.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+n2
+\series default
+ est composé.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+n3
+\series default
+ est pseudo-premier.
+\end_layout
+
+\begin_layout Subsection*
+Réponse 8.
+\end_layout
+
+\begin_layout Standard
+La figure ci-apres represente des courbes des differents tests de la fonction
+ Eval().
+ Ces resultat ont été pris en executons la fonction Eval() 100 fois avec
+ les valeurs de b suivantes : 128, 256, 512, 1024, 2048 et 4096.
+\end_layout
+
+\begin_layout Standard
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x128.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+128 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x256.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+256 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x512.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+512 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x1024.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+1024 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x2048.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+2048 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename x4096.jpg
+	scale 20
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+4096 bits
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename means.jpg
+	scale 35
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+courbe des moyennes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+tests de fonction eval.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sur les figures (a-f), l'axe des abscisses représente les differentes executions
+ tandis que celui des ordonnées représente la complexité ().
+ La courbe des executions est en bleue et la courbe en rouge represente
+ la moyenne.
+\end_layout
+
+\begin_layout Subsection*
+Réponse 9.
+\end_layout
+
+\begin_layout Standard
+La figure 1 (g) ci-dessus représente la courbe de complexité (en ordonnée)
+ selon la taille de nombre en bits (en abscisse).
+\end_layout
+
+\begin_layout Standard
+On peut y remarquer que cette courbe représente une fonction croissante,
+ ce qui implique que la complexité est directement proportionnelle avec
+ la taille de nombre en bits.
+\end_layout
+
+\begin_layout Standard
+En d'autre termes, on remarque que la complexité augmente presque linéairement,
+ ce qui nous amène à constater que ce générateur de nombres aléatoires (
+ basés sur le test de Miller Rabin) est en temps polynomiale.
+\end_layout
+
+\begin_layout Subsection*
+Réponse 10.
+\end_layout
+
+\begin_layout Standard
+Le test qui permet de garantir si un nombre premier est le test d’AKS (aussi
+ connu comme le test de primalité Agrawal-Kayal-Saxena) ce test est un test
+ déterministe et généraliste, il permet de déterminer de façon certaine
+ si un nombre est premier contrairement aux tests probabilistes.
+\end_layout
+
+\begin_layout Standard
+Sa complexité temporelle originale est en 
+\begin_inset Formula $\mathcal{O}((log\ n)^{10.5})$
+\end_inset
+
+ en mars 2003, d’autres mathématiciens ont essayés d’améliorer sa complexité
+ en 
+\begin_inset Formula $\mathcal{O}((log\ n)^{4})$
+\end_inset
+
+ en revanche, l’algorithme en cette complexité n’était pas déterministe
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "aks"
+literal "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "BigInt"
+literal "false"
+
+\end_inset
+
+ BigInteger ( JavaDoc), https://docs.oracle.com/javase/7/docs/api/java/math/BigInt
+eger.html.
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "SecRand"
+literal "false"
+
+\end_inset
+
+ SecureRandom (JavaDoc),
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Rand"
+literal "false"
+
+\end_inset
+
+ TechTarget, https://whatis.techtarget.com/definition/random-numbers
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "Rand2"
+literal "false"
+
+\end_inset
+
+ Techopedia, https://www.techopedia.com/definition/31706/random-number
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
+key "aks"
+literal "false"
+
+\end_inset
+
+ L’algorithmeAKS, http://www.trigofacile.com/maths/curiosite/primarite/aks/pdf/alg
+orithme-aks.pdf
+\end_layout
+
+\end_body
+\end_document
